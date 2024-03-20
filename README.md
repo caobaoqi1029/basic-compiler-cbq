@@ -4,7 +4,7 @@
 
 - 参考自 [BiliBili up 熊熊熊熊爷 的 -->如何快速入门编译原理，并快速实现一个编译器](https://www.bilibili.com/video/BV16h4y1F7FM/?spm_id_from=..search-card.all.click&vd_source=9071a50b607525e6db8ba7b49bc960f5)
 
-![2024-03-20 18-02-23.png](./assets/2024-03-20 18-02-23.png)
+![2024-03-20 18-02-23.png](assets%2F2024-03-20%2018-02-23.png)
 
 ## 项目结构
 
