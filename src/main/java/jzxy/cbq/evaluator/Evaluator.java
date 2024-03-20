@@ -2,8 +2,8 @@ package jzxy.cbq.evaluator;
 
 import jzxy.cbq.ast.InfixExpression;
 import jzxy.cbq.ast.IntegerExpression;
-import jzxy.cbq.ast.Node;
 import jzxy.cbq.ast.PrefixExpression;
+import jzxy.cbq.ast.Node;
 import jzxy.cbq.object.MInt;
 import jzxy.cbq.object.MObj;
 

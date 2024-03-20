@@ -1,6 +1,9 @@
 package jzxy.cbq.parser;
 
-import jzxy.cbq.ast.*;
+import jzxy.cbq.ast.Expression;
+import jzxy.cbq.ast.InfixExpression;
+import jzxy.cbq.ast.IntegerExpression;
+import jzxy.cbq.ast.PrefixExpression;
 import jzxy.cbq.lexer.Lexer;
 import jzxy.cbq.token.Token;
 import jzxy.cbq.token.TokenType;
