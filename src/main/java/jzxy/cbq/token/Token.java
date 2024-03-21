@@ -1,11 +1,17 @@
 package jzxy.cbq.token;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 代表一个语言的标记（Token）类
  * 一个标记通常包含标记类型（TokenType）和标记的值（value）
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Token {
-
     /**
      * 标记的类型，例如关键字、标识符、运算符等
      */
@@ -16,31 +22,20 @@ public class Token {
     public String value;
 
     /**
-     * 构造函数，用于创建一个具有指定类型和值的 Token
+     * 重写 toString() 方法，用于在控制台上输出 Token 的信息
      *
-     * @param type  标记的类型
-     * @param value 标记的值
+     * @return Token 的信息
      */
-    public Token(TokenType type, String value) {
-        this.type = type;
-        this.value = value;
-    }
-
-    /**
-     * 无参数构造函数，用于创建一个类型和值尚未指定的 Token
-     */
-    public Token() {
-
-    }
-
-    /**
-     * 重写 toString 方法，以便于以 "Token(类型, 值)" 的格式输出标记
-     *
-     * @return 表示Token的字符串
-     */
-    @Override
     public String toString() {
-        return "Token(" + type + ", " + value + ")";
+        int typeLen = type.getName().length();
+        int valueLen = value.length();
+        int maxLen = Math.max(typeLen, valueLen);
+        return "Token --> type: " + type.getName() +
+                " ".repeat(Math.max(0, maxLen - typeLen)) +
+                "\t| value: " +
+                value +
+                " ".repeat(maxLen - valueLen);
     }
+
 }
 

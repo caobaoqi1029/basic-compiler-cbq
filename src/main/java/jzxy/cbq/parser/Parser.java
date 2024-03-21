@@ -50,6 +50,7 @@ public class Parser {
         infixParseFnHashMap.put(TokenType.ASTERISK, this::parseInfixExpression);
         infixParseFnHashMap.put(TokenType.SLASH, this::parseInfixExpression);
         infixParseFnHashMap.put(TokenType.HAT, this::parseInfixExpression);
+
         // 预读两个令牌
         nextToken();
         nextToken();

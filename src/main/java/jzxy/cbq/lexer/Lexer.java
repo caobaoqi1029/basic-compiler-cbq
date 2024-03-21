@@ -3,6 +3,9 @@ package jzxy.cbq.lexer;
 import jzxy.cbq.token.Token;
 import jzxy.cbq.token.TokenType;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 词法分析器类，用于分析输入字符串中的一个个 Token
  */
@@ -21,7 +24,7 @@ public class Lexer {
     int curPos, peekPos;
 
     /**
-     * Lexer构造函数。
+     * Lexer 构造函数。
      *
      * @param input 输入的字符串。
      */
@@ -127,6 +130,23 @@ public class Lexer {
         }
         curPos = peekPos;
         peekPos += 1;
+    }
+ /**
+     * 生成并返回一个包含所有 Token 的列表。
+     *
+     * @return 包含从输入字符串分析出的所有 Token 的 List
+     */
+    public List<Token> getTokenList() {
+        List<Token> tokens = new LinkedList<>();
+        while (hasNext()) {
+            Token token = nextToken();
+            if (token.type != TokenType.EOF) { // 不将 EOF Token 加入列表
+                tokens.add(token);
+            } else {
+                break; // 遇到 EOF 结束循环
+            }
+        }
+        return tokens;
     }
 
 }
