@@ -12,21 +12,28 @@ import java.math.BigInteger;
 import java.util.HashMap;
 
 /**
- * 解析器类，用于解析词法分析器生成的令牌流，构建表达式树。
+ * 解析器类，用于解析词法分析器生成的令牌流，构建表达式树
  */
 public class Parser {
-
-    final Lexer lexer; // 词法分析器
-
-    Token cur, peek; // 当前令牌和下一个令牌
-
-    // 中缀解析函数映射
+    /**
+     * 词法分析器
+     */
+    final Lexer lexer;
+    /**
+     * 当前和下一个令牌
+     */
+    Token cur, peek;
+    /**
+     * 中缀解析函数映射
+     */
     HashMap<TokenType, InfixParseFn> infixParseFnHashMap = new HashMap<>();
-    // 前缀解析函数映射
+    /**
+     * 前缀解析函数映射
+     */
     HashMap<TokenType, PrefixParseFn> prefixParseFnHashMap = new HashMap<>();
 
     /**
-     * 构造函数，初始化解析器。
+     * 构造函数，初始化解析器
      *
      * @param lexer 词法分析器实例
      */
@@ -49,7 +56,7 @@ public class Parser {
     }
 
     /**
-     * 获取下一个令牌。
+     * 获取下一个令牌
      */
     void nextToken() {
         cur = peek;
@@ -57,27 +64,26 @@ public class Parser {
     }
 
     /**
-     * 检查当前令牌是否为指定类型。
+     * 检查当前令牌是否为指定类型
      *
      * @param type 令牌类型
-     * @return 如果当前令牌类型与指定类型匹配，则返回true，否则返回false
+     * @return 如果当前令牌类型与指定类型匹配，则返回 true，否则返回 false
      */
     private boolean curTokenIs(TokenType type) {
         return cur.type == type;
     }
 
     /**
-     * 检查下一个令牌是否为指定类型。
+     * 检查下一个令牌是否为指定类型
      *
-     * @param type 令牌类型
-     * @return 如果下一个令牌类型与指定类型匹配，则返回true，否则返回false
+     * @return 如果下一个令牌类型与指定类型匹配，则返回 true，否则返回 false
      */
-    private boolean peekTokenIs(TokenType type) {
-        return peek.type == type;
+    private boolean peekTokenIs() {
+        return peek.type == TokenType.EOF;
     }
 
     /**
-     * 解析主表达式。
+     * 解析主表达式
      *
      * @return 解析后的表达式树根节点
      */
@@ -86,7 +92,7 @@ public class Parser {
     }
 
     /**
-     * 获取下一个令牌的优先级。
+     * 获取下一个令牌的优先级
      *
      * @return 令牌的优先级
      */
@@ -95,7 +101,7 @@ public class Parser {
     }
 
     /**
-     * 根据当前优先级解析表达式。
+     * 根据当前优先级解析表达式
      *
      * @param precedence 当前解析表达式的优先级
      * @return 解析后的表达式
@@ -107,7 +113,7 @@ public class Parser {
         }
         Expression left = prefixParseFn.parse();
 
-        while (!peekTokenIs(TokenType.EOF) && precedence < peekPrecedence()) {
+        while (!peekTokenIs() && precedence < peekPrecedence()) {
             InfixParseFn infixParseFn = infixParseFnHashMap.get(peek.type);
             if (infixParseFn == null) {
                 return left;
@@ -120,7 +126,7 @@ public class Parser {
     }
 
     /**
-     * 解析中缀表达式。
+     * 解析中缀表达式
      *
      * @param left 左侧表达式
      * @return 中缀表达式节点
@@ -136,7 +142,7 @@ public class Parser {
     }
 
     /**
-     * 解析前缀表达式。
+     * 解析前缀表达式
      *
      * @return 前缀表达式节点
      */
@@ -150,20 +156,18 @@ public class Parser {
     }
 
     /**
-     * 解析整数表达式。
+     * 解析整数表达式
      *
      * @return 整数表达式节点
      */
     public Expression parseInteger() {
         BigInteger val = new BigInteger(cur.value);
 
-        IntegerExpression integerExpression = new IntegerExpression(val);
-
-        return integerExpression;
+        return new IntegerExpression(val);
     }
 
     /**
-     * 解析括号表达式。
+     * 解析括号表达式
      *
      * @return 括号内的表达式节点
      */
