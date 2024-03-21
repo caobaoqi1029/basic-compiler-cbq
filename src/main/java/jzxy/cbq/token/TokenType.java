@@ -1,11 +1,14 @@
 package jzxy.cbq.token;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 令牌类型枚举，用于标识解析过程中的不同令牌。
+ * token 类型枚举，用于标识解析过程中的不同 token
  */
+@Getter
 public enum TokenType {
     /**
      * 数字类型。
@@ -45,38 +48,40 @@ public enum TokenType {
     EOF("EOF");
 
     /**
-     * 构造函数，初始化令牌类型
+     * 构造函数，初始化 token 类型
      *
-     * @param name 令牌的名称
+     * @param name token 的名称
      */
     TokenType(String name) {
         this.name = name;
     }
 
     /**
-     * 令牌的内部名称
+     * token 的内部名称
      */
-    private String name;
+    private final String name;
 
     /**
      * 创建一个静态映射，用于快速查找枚举值
      */
-    static Map<String, TokenType> map = new HashMap<>();
+    static final Map<String, TokenType> map = new HashMap<>();
 
     static {
         // 初始化映射，将字符与相应的枚举值关联起来。
         map.put("(", LPAREN);
         map.put(")", RPAREN);
-        map.put("-", MINUS);
         map.put("+", PLUS);
+        map.put("-", MINUS);
         map.put("*", ASTERISK);
         map.put("/", SLASH);
+        map.put("^", HAT);
+        map.put("", EOF);
     }
 
     /**
      * 重写 toString 方法，提供更友好的字符串表示形式
      *
-     * @return 令牌类型的字符串表示
+     * @return token 类型的字符串表示
      */
     @Override
     public String toString() {

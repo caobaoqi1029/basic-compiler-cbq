@@ -11,6 +11,29 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(TestLoggerExtension.class)
 @Slf4j
 public class LexerTest {
+
+    @Test
+    public void testTree() {
+        String code = "(1 + 2) + 2 ^ 3";
+        Lexer lexer = new Lexer(code);
+
+        Parser parser = new Parser(lexer);
+        Expression expression = parser.parseMain();
+        System.out.println(Evaluator.eval(expression));
+    }
+
+    @Test
+    public void testToken() {
+        String code = "(1 + 2) + 2 ^ 3";
+        Lexer lexer = new Lexer(code);
+        while (lexer.hasNext()) {
+            System.out.println(lexer.nextToken());
+        }
+        Parser parser = new Parser(lexer);
+        Expression expression = parser.parseMain();
+        System.out.println(Evaluator.eval(expression));
+    }
+
     /**
      * 测试加法运算
      */
