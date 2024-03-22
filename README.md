@@ -65,6 +65,29 @@
 3. 解析器读取 token 序列，并根据操作符的优先级构建 AST。
 4. 求值器遍历 AST，并计算出结果。
 
+```java
+public class Main {
+    public static void main(String[] args) {
+        String code = "3 + 5 * (10 - 4)";
+        // 将 code 拆分为 token 并解析 tokens 并构建 AST
+        Expression expression = new Parser(new Lexer(code)).parseMain();
+        // 计算 AST
+        System.out.println("code:  " + code + "\nresult: " + Evaluator.eval(expression));
+
+        System.out.println("===========TokenList=============");
+        // 输出 tokens
+        List<Token> tokens = new Lexer(code).getTokenList();
+        tokens.forEach(System.out::println);
+        System.out.println("===========TokenList=============");
+
+    }
+}
+```
+
+<img src="https://2024-cbq-1311841992.cos.ap-beijing.myqcloud.com/picgo/image-20240321082338534.png" alt="image-20240321082338534" style="zoom:67%;" />
+
+<img src="https://2024-cbq-1311841992.cos.ap-beijing.myqcloud.com/picgo/image-20240321082402569.png" alt="image-20240321082402569" style="zoom:67%;" />
+
 ### 环境要求
 
 - Java 8 或以上版本。
