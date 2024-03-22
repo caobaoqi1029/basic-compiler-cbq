@@ -3,24 +3,25 @@ package jzxy.cbq;
 import jzxy.cbq.ast.Expression;
 import jzxy.cbq.evaluator.Evaluator;
 import jzxy.cbq.lexer.Lexer;
+import jzxy.cbq.object.MObj;
 import jzxy.cbq.parser.Parser;
-import jzxy.cbq.token.Token;
-
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String code = "3 + 5 * (10 - 4)";
-        // 将 code 拆分为 token 并解析 tokens 并构建 AST
-        Expression expression = new Parser(new Lexer(code)).parseMain();
-        // 计算 AST
-        System.out.println("code:  " + code + "result" + Evaluator.eval(expression));
+        String code = "(3 + 5) * 2 / 0";
+        // 将 code 拆分为 tokens （词法分析阶段）
+        Lexer lexer = new Lexer(code);
+        // 解析 tokens 并构建 AST (语法分析阶段)
+        Expression exp = new Parser(lexer).parseMain();
+        // 计算 AST （语义分析、代码生成阶段）
+        MObj result = Evaluator.eval(exp);
 
-        System.out.println("===========TokenList=============");
-        // 输出 tokens
-        List<Token> tokens = new Lexer(code).getTokenList();
-        tokens.forEach(System.out::println);
-        System.out.println("===========TokenList=============");
+        System.out.println("code:  " + code + "\nresult：" + result);
 
+/*        System.out.println("===========TokenList=============");
+        // 输出 lexer
+        List<Token> lexer = new Lexer(code).getTokenList();
+        lexer.forEach(System.out::println);
+        System.out.println("===========TokenList=============");*/
     }
 }
